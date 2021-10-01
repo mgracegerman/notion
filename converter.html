@@ -1,7 +1,250 @@
-<div class="omni-calculator" data-calculator="food/cooking-measurement" data-width="225" data-config='{}' data-currency="PHP" data-show-row-controls="false" data-version="3" data-t="1633093179818">
-  <div class="omni-calculator-header">Measurement Converter</div>
-  <div class="omni-calculator-footer">
-    <a href="https://www.omnicalculator.com/food/cooking-measurement" target="_blank"><img alt="Omni" class="omni-calculator-logo" src="https://cdn.omnicalculator.com/embed/omni-calculator-logo-long.svg" /></a>
-  </div>
+<div id="leftColCalc">
+
+
+<div class="addToPhone_btn">Add to phone</div>
+<h1>Cooking Recipe Converter</h1>
+
+<ul class="tabs2">
+<li id="tab1" class="active"><a href="/cooking/cooking-calculator.php">Recipe Converter</a></li>
+<li id="tab2"><a href="/cooking/oven-temperatures.php">Oven Temperatures</a></li>
+</ul>
+
+<div class="calculator_form tabsAbove">
+
+<form name="cform" method="post" id="scrollTop" action="cooking-calculator.php" onsubmit="return processForm(this,2);" autocomplete="off">
+
+<div class="single-field">
+<label for="convertfrom" class="heading">Convert from:</label>
+
+<button type="button" id="swap">
+<img src="/images/icons/switch.png" style="width:32px; height:32px;" alt="switch values"/>
+</button>
+
+<select name="convertfrom" id="convertfrom" required="" style="max-width:200px;">
+<option value="70" unittype="volume">Cups (US)</option>
+<option value="201" unittype="volume">Cups (Metric)</option>
+<option value="158" unittype="volume">Cups (Imperial)</option>
+<option value="77" unittype="volume">Deciliters [dL]</option>
+<option value="88" unittype="volume">Fluid Ounces (UK) [fl oz]</option>
+<option value="71" unittype="volume">Fluid Ounces (US) [fl oz]</option>
+<option value="84" unittype="volume">Gallons (UK) [gal]</option>
+<option value="67" unittype="volume">Gallons (US)</option>
+<option value="99" unittype="weight">Grams [g]</option>
+<option value="102" unittype="weight">Kilograms [kg]</option>
+<option value="78" unittype="volume">Liters [L]</option>
+<option value="74" unittype="volume">Milliliters [mL]</option>
+<option value="91" unittype="weight">Ounces [oz]</option>
+<option value="86" unittype="volume">Pints (UK) [pt]</option>
+<option value="69" unittype="volume">Pints (US) [pt]</option>
+<option value="90" unittype="weight">Pounds [lb]</option>
+<option value="85" unittype="volume">Quarts (UK) [qt]</option>
+<option value="68" unittype="volume">Quarts (US) [qt]</option>
+<option value="72" unittype="volume">Tablespoons (US)</option>
+<option value="202" unittype="volume">Tablespoons (Metric)</option>
+<option value="157" unittype="volume">Tablespoons (Imperial)</option>
+<option value="73" unittype="volume">Teaspoons (US)</option>
+<option value="203" unittype="volume">Teaspoons (Metric)</option>
+<option value="262" unittype="volume">Teaspoons (Imperial)</option>
+</select>
+<span class="clearElement"></span>
 </div>
-<script async src="https://cdn.omnicalculator.com/sdk.js"></script>
+
+<div class="single-field">
+<label for="convertto" class="heading">Convert to:</label>
+<select name="convertto" id="convertto" required="">
+<option value="70" unittype="volume">Cups (US)</option>
+<option value="201" unittype="volume">Cups (Metric)</option>
+<option value="158" unittype="volume">Cups (Imperial)</option>
+<option value="77" unittype="volume">Deciliters [dL]</option>
+<option value="88" unittype="volume">Fluid Ounces (UK) [fl oz]</option>
+<option value="71" unittype="volume">Fluid Ounces (US) [fl oz]</option>
+<option value="84" unittype="volume">Gallons (UK) [gal]</option>
+<option value="67" unittype="volume">Gallons (US)</option>
+<option value="99" unittype="weight">Grams [g]</option>
+<option value="102" unittype="weight">Kilograms [kg]</option>
+<option value="78" unittype="volume">Liters [L]</option>
+<option value="74" unittype="volume" selected="selected">Milliliters [mL]</option>
+<option value="91" unittype="weight">Ounces [oz]</option>
+<option value="86" unittype="volume">Pints (UK) [pt]</option>
+<option value="69" unittype="volume">Pints (US) [pt]</option>
+<option value="90" unittype="weight">Pounds [lb]</option>
+<option value="85" unittype="volume">Quarts (UK) [qt]</option>
+<option value="68" unittype="volume">Quarts (US) [qt]</option>
+<option value="72" unittype="volume">Tablespoons (US)</option>
+<option value="202" unittype="volume">Tablespoons (Metric)</option>
+<option value="157" unittype="volume">Tablespoons (Imperial)</option>
+<option value="73" unittype="volume">Teaspoons (US)</option>
+<option value="203" unittype="volume">Teaspoons (Metric)</option>
+<option value="262" unittype="volume">Teaspoons (Imperial)</option>
+</select>
+<span class="clearElement"></span>
+</div>
+
+<div id="ingredientList">
+
+<div class="single-field">
+<p>
+Please choose a cooking ingredient. A density is required for converting between units of volume and weight (a cup of sugar weighs less than a cup of milk). If your ingredient 
+is not on the list, click &#39;add own&#39;.
+</p>
+<label for="substance" class="heading">Cooking Ingredients (approximations):</label>
+<select name="substance" id="substance" onchange="ChangeDensity(this.options[selectedIndex].value);">
+	<option value="">-- List of Ingredients --</option>
+
+	<option value="155">Water (pure)</option>
+	
+	<optgroup label="Flour">
+	<option value="291">All purpose flour</option>
+	<option value="7">Almond flour</option>
+	<option value="2">Bread flour</option>
+	<option value="1">Cake flour</option>
+	<option value="5">Pastry flour</option>
+	<option value="6">Whote wheat flour</option>
+	<option value="180">Baking powder</option>
+	<option value="195">Baking soda (bicarb)</option>
+	</optgroup>
+	
+	<optgroup label="Sugars and sweeteners">
+	<option value="471">Brown sugar (packed)</option>
+	<option value="473">Granulated sugar</option>
+	<option value="472">Powdered sugar (unsift)</option>
+	<option value="474">Raw cane sugar</option>
+	<option value="572">Honey</option>
+	<option value="582">Maple syrup</option>
+	<option value="9">Stevia</option>
+	</optgroup>
+	
+	<optgroup label="Fats and oils">
+	<option value="207">Butter</option>
+	<option value="584">Lard</option>
+	<option value="573">Margarine</option>
+	<option value="35">Coconut oil</option>
+	<option value="113">Olive oil</option>
+	<option value="10">Palm oil</option>
+	<option value="134">Rapeseed oil</option>
+	<option value="146">Sunflower oil</option>
+	</optgroup>
+	
+	<optgroup label="Milk and cream">
+	<option value="107">Milk</option>
+	<option value="591">Milk (condensed)</option>
+	<option value="592">Milk (evaporated)</option>
+	<option value="575">Light cream</option>
+	<option value="574">Heavy cream</option>
+	<option value="576">Whipped cream</option>
+	<option value="598">Yogurt (Greek)</option>
+	</optgroup>
+	
+	<optgroup label="Nuts and seeds">
+	<option value="579">Almonds</option>
+	<option value="580">Cashew nuts</option>
+	<option value="395">Peanuts, not shelled</option>
+	<option value="394">Peanuts, shelled</option>
+	<option value="593">Pecan nuts</option>
+	<option value="581">Sunflower seeds</option>
+	<option value="594">Walnuts</option>
+	</optgroup>
+
+	<optgroup label="Fruit and veg">
+	<option value="170">Apples</option>
+	<option value="3">Avocado (cubes)</option>
+	<option value="4">Avocado (pureed)</option>
+	<option value="261">Corn, grits</option>
+	<option value="259">Corn, on the cob</option>
+	<option value="260">Corn, shelled</option>
+	<option value="410">Potatoes (white)</option>
+	</optgroup>
+	
+	<optgroup label="Other ingredients">
+	
+	<option value="596">Alcohol, pure (ethanol)</option>
+	<option value="199">Bran</option>
+	<option value="578">Breadcrumbs</option>
+	<option value="13">Chocolate (grated)</option>
+	<option value="14">Chocolate chips</option>
+	<option value="586">Cinnamon</option>
+	<option value="225">Cocoa powder</option>
+	<option value="244">Coconut, shredded</option>
+	<option value="599">Coffee (ground)</option>
+	<option value="8">Cumin (powdered)</option>
+	<option value="589">Currants (dried)</option>
+	<option value="590">Dried fruits</option>
+	<option value="588">Fruit juice</option>
+	<option value="587">Jam</option>
+	<option value="11">Mascarpone</option>
+	<option value="585">Mayonnaise</option>
+	<option value="386">Oats</option>
+	<option value="387">Oats, rolled</option>
+	<option value="595">Peanut butter</option>
+	<option value="417">Rice (hulled)</option>
+	<option value="418">Rice (rough)</option>
+	<option value="12">Ricotta cheese</option>
+	<option value="426">Rye</option>
+	<option value="429">Salt, fine</option>
+	<option value="597">Turmeric</option>
+	<option value="583">Yeast</option>
+	<option value="577">Yogurt (plain)</option>
+	</optgroup></select>
+
+<span class="additional addOwn"><a href="javascript:showDensityBox();">add own</a></span>
+<span class="clearElement"></span>
+</div>
+
+<div id="densityBox" class="single-field">
+<label for="density" class="heading">Density:</label>
+<input type="number" step="any" min="0" name="density" id="density" class="calculatorMedInput density" onclick="ResetIngredients();" inputmode="decimal"/>
+<select name="densityopt" id="densityopt"> 
+<option value="gcm">g/cm³</option>
+<option value="gl">g/L</option>
+<option value="gml">g/ml</option>
+<option value="kgl">kg/L</option>
+<option value="kgm" selected="">kg/m³</option>
+<option value="ozgaluk">oz/gal [UK]</option>
+<option value="ozgalus">oz/gal [US]</option>
+<option value="lbft">lb/ft³</option>
+<option value="lbin">lb/in³</option>
+</select>
+<span class="clearElement"></span>
+</div>
+</div>
+
+<div class="single-field">
+<label for="valuetoconvert" id="scrollto_mobile" class="heading">Value to convert:</label>
+<input type="number" step="any" min="0" name="valuetoconvert" id="valuetoconvert" class="calculatorMedInput" required="required" inputmode="decimal"/>
+<span class="clearElement"></span>
+</div>
+
+<div class="single-field-noHighlight roundingOptions">
+<label for="round">Round (decimal places):</label>
+<span class="radio-switch">
+<input type="radio" id="radio-1" name="round" value="1"/>
+<label for="radio-1">1</label>
+<input type="radio" id="radio-2" name="round" value="2" checked=""/>
+<label for="radio-2">2</label>
+<input type="radio" id="radio-3" name="round" value="3"/>
+<label for="radio-3">3</label>
+<input type="radio" id="radio-4" name="round" value="4"/>
+<label for="radio-4">4</label>
+</span>
+<button type="submit" class="calculatorButton">Convert</button>
+<span class="clearElement"></span>
+</div>
+
+<input type="hidden" name="sp" id="sp" value=""/>  
+<input type="hidden" name="cookingCalc" value="1"/>
+
+</form>
+
+<span id="ScrollTo"></span> 
+
+</div>
+
+
+<div id="aboveResultsAd">
+</div>
+  	
+<div id="resultDiv">
+<span>Use this cooking conversion tool to help you convert between units commonly referenced in cooking recipes (cups, ounces, grams, kilograms, teaspoons, tablespoons 
+and more). </span>
+<span id="resultDivMsg"></span>
+</div>
